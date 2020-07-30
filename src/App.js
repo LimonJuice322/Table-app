@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactPaginate from 'react-paginate';
 import logo from './logo.svg';
 import './App.css';
 import Table from './Components/Table/Table';
@@ -14,6 +15,7 @@ class App extends Component {
     field: 'id',
     sort: 'up',
     person: null,
+    current_page: 0
   }
 
   urls = {
@@ -31,7 +33,6 @@ class App extends Component {
   }
 
   Sort = field => {
-    console.log(this.state.data);
     let copied_data = this.state.data.slice(0);
     let sort_dir = this.state.sort == 'up' ? 'down' : 'up';
     let ordered_data = copied_data.sort(function (person_1, person_2) {
@@ -63,7 +64,15 @@ class App extends Component {
     this.componentDidMount(url)
   }
 
+  page_change_handler = (elem) => {
+    this.setState({
+      current_page: elem.selected,
+    })
+  }
+
   render() {
+    const page_size = 50;
+
     if (!this.state.type_selected) {
       return (
         <div className="App">
@@ -71,15 +80,40 @@ class App extends Component {
         </div>
       )
     }
+
+    let clone_data = this.state.data.slice(0);
+    let current_page = this.state.current_page;
+    let display_data = clone_data.splice(current_page*page_size, page_size);
     return (
       <div className="App">
         { this.state.request_status ? <Loading /> :
-          <Table data={this.state.data}
+          <Table data={display_data}
                  sort={this.Sort}
                  sort_dir={this.state.sort}
                  field={this.state.field}
                  get_info={this.get_info}
           />
+        }
+        {
+          this.state.data.length > page_size ?
+          <ReactPaginate previousLabel={'<'}
+                         nextLabel={'>'}
+                         breakLabel={'...'}
+                         breakClassName={'break-me'}
+                         pageCount={20}
+                         marginPagesDisplayed={2}
+                         pageRangeDisplayed={5}
+                         onPageChange={this.page_change_handler}
+                         containerClassName={'pagination'}
+                         activeClassName={'active'}
+                         pageClassName="page-item"
+                         pageLinkClassName="page-link"
+                         previousClassName="page-item"
+                         nextClassName="page-item"
+                         previousLinkClassName="page-link"
+                         nextLinkClassName="page-link"
+                         forcePage={this.state.current_page}
+          /> : null
         }
         {
           this.state.person ? <PersonInfo person={this.state.person} /> : null
