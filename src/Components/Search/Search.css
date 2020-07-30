@@ -1,0 +1,31 @@
+.search {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 800px;
+  margin: 0 auto;
+}
+
+.search__input {
+  font-size: inherit;
+  padding: 5px;
+  width: 650px;
+  border: 3px solid #3AFF81;
+  border-radius: 5px;
+}
+
+.search__btn {
+  padding: 10px;
+  font-size: inherit;
+  color: #3AFF81;
+  background-color: #ffffff;
+  border: 3px solid #3AFF81;
+  border-radius: 5px;
+}
+
+.search__btn:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #3AFF81;
+  border-color: transparent;
+}

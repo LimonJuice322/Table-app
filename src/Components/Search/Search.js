@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Search.css';
 
 export default function Search(props) {
   const [value, set_value] = useState('');
@@ -8,8 +9,8 @@ export default function Search(props) {
 
   return (
     <div className="search">
-      <input onChange={value_change} value={value} className="search__input" type="text"/>
-      <button onClick={() => props.search(value)} className="search__btn">Search</button>
+      <input className="search__input" onChange={value_change} value={value} className="search__input" type="text"/>
+      <button className="search__btn" onClick={() => props.search(value)} className="search__btn">Search</button>
     </div>
   )
 }

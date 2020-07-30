@@ -106,7 +106,8 @@ class App extends Component {
     }
 
     let filtered_data = this.get_filtered_data();
-    let page_count = Math.ceil(filtered_data.length / page_size)
+    let page_count = Math.ceil(filtered_data.length / page_size);
+    if (filtered_data.length < page_size) page_count = filtered_data.length;
     let current_page = this.state.current_page;
     let display_data = filtered_data.splice(current_page*page_count, page_count);
     return (

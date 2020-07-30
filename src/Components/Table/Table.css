@@ -1,0 +1,23 @@
+.table {
+  width: 800px;
+  border-spacing: none;
+  border-collapse: collapse;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.table__dir {
+  padding-left: 10px;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.table__row:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #3AB8FF;
+}
+
+.table__cell {
+  padding: 10px;
+}

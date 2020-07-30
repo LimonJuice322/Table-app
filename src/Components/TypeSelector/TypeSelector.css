@@ -1,0 +1,39 @@
+.buttons {
+  font-size: 15px;
+  margin: 100px auto;
+  display: flex;
+  width: 120px;
+  min-height: 250px;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: inherit;
+}
+
+.buttons__btn {
+  padding: 10px;
+  color: #ffffff;
+  font-size: inherit;
+  background-color: #3AFF81;
+  border: 3px solid transparent;
+  border-radius: 10px;
+}
+
+.buttons__btn:hover {
+  cursor: pointer;
+  color: #3AFF81;
+  background-color: #ffffff;
+  border-color: #3AFF81;
+}
+
+.buttons__description {
+  color: #3AB8FF;
+  font-size: 30px;
+}
+
+.buttons__btn--small {
+
+}
+
+.buttons__btn--large {
+
+}
