@@ -7,7 +7,9 @@ import Loading from './Loading/Loading';
 class App extends Component {
   state = {
     data: [],
-    request_status: true
+    request_status: true,
+    field: 'id',
+    sort: 'up'
   }
 
   async componentDidMount() {
@@ -15,21 +17,34 @@ class App extends Component {
     let data = await res.json();
     this.setState({
       request_status: false,
-      data: data
+      data: data.sort((person_1, person_2) => person_1.id - person_2.id)
+    })
+  }
+
+  Sort = field => {
+    console.log(this.state.data);
+    let copied_data = this.state.data.slice(0);
+    let sort_dir = this.state.sort == 'up' ? 'down' : 'up';
+    let ordered_data = copied_data.sort(function (person_1, person_2) {
+      if (sort_dir == 'up') {
+        return person_1[`${field}`] > person_2[`${field}`] ? 1 : -1
+      } else {
+        return person_1[`${field}`] < person_2[`${field}`] ? 1 : -1
+      }
+    })
+
+    this.setState({
+      data: ordered_data,
+      field: field,
+      sort: sort_dir
     })
   }
 
   render() {
-    console.log(this.state.data)
     return (
       <div className="App">
-        {
-          this.state.request_status
-           ? <Loading />
-           : <Table
-           data={this.state.data}
-           />
-         }
+        { this.state.request_status ? <Loading /> :
+          <Table data={this.state.data} sort={this.Sort} sort_dir={this.state.sort} field={this.state.field}/> }
       </div>
     )
   }

@@ -6,11 +6,26 @@ export default function Table(props) {
     <table className="table">
       <thead>
         <tr className="table__row">
-          <th className="table__column-name">ID</th>
-          <th className="table__column-name">First Name</th>
-          <th className="table__column-name">Last Name</th>
-          <th className="table__column-name">Email</th>
-          <th className="table__column-name">Phone</th>
+          <th onClick={props.sort.bind(null, 'id')} className="table__column-name">
+          ID
+          {props.field == 'id' ? <span>{props.sort_dir}</span> : null}
+          </th>
+          <th onClick={props.sort.bind(null, 'firstName')} className="table__column-name">
+          First Name
+          {props.field == 'firstName' ? <span>{props.sort_dir}</span> : null}
+          </th>
+          <th onClick={props.sort.bind(null, 'lastName')} className="table__column-name">
+          Last Name
+          {props.field == 'lastName' ? <span>{props.sort_dir}</span> : null}
+          </th>
+          <th onClick={props.sort.bind(null, 'email')} className="table__column-name">
+          Email
+          {props.field == 'email' ? <span>{props.sort_dir}</span> : null}
+          </th>
+          <th onClick={props.sort.bind(null, 'phone')} className="table__column-name">
+          Phone
+          {props.field == 'phone' ? <span>{props.sort_dir}</span> : null}
+          </th>
         </tr>
       </thead>
       { props.data.map(person => (
