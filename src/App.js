@@ -6,6 +6,7 @@ import Table from './Components/Table/Table';
 import Loading from './Components/Loading/Loading';
 import PersonInfo from './Components/PersonInfo/PersonInfo';
 import TypeSelector from './Components/TypeSelector/TypeSelector';
+import Search from './Components/Search/Search';
 
 class App extends Component {
   state = {
@@ -15,7 +16,8 @@ class App extends Component {
     field: 'id',
     sort: 'up',
     person: null,
-    current_page: 0
+    current_page: 0,
+    search: ''
   }
 
   urls = {
@@ -70,6 +72,28 @@ class App extends Component {
     })
   }
 
+  search_handler = (search) => {
+    this.setState({
+      search: search,
+      current_page: 0
+    })
+  }
+
+  get_filtered_data() {
+    let clone_data = this.state.data.slice(0);
+    let search = this.state.search;
+
+    if (!search) {
+      return clone_data
+    }
+
+    return clone_data.filter(person => {
+      return person['firstName'].toLowerCase().includes(search.toLowerCase())
+        || person['lastName'].toLowerCase().includes(search.toLowerCase())
+        || person['email'].toLowerCase().includes(search.toLowerCase())
+    })
+  }
+
   render() {
     const page_size = 50;
 
@@ -81,18 +105,22 @@ class App extends Component {
       )
     }
 
-    let clone_data = this.state.data.slice(0);
+    let filtered_data = this.get_filtered_data();
+    let page_count = Math.ceil(filtered_data.length / page_size)
     let current_page = this.state.current_page;
-    let display_data = clone_data.splice(current_page*page_size, page_size);
+    let display_data = filtered_data.splice(current_page*page_count, page_count);
     return (
       <div className="App">
         { this.state.request_status ? <Loading /> :
-          <Table data={display_data}
-                 sort={this.Sort}
-                 sort_dir={this.state.sort}
-                 field={this.state.field}
-                 get_info={this.get_info}
-          />
+          <React.Fragment>
+            <Search search={this.search_handler}/>
+            <Table data={display_data}
+                   sort={this.Sort}
+                   sort_dir={this.state.sort}
+                   field={this.state.field}
+                   get_info={this.get_info}
+            />
+          </React.Fragment>
         }
         {
           this.state.data.length > page_size ?
@@ -100,7 +128,7 @@ class App extends Component {
                          nextLabel={'>'}
                          breakLabel={'...'}
                          breakClassName={'break-me'}
-                         pageCount={20}
+                         pageCount={page_count}
                          marginPagesDisplayed={2}
                          pageRangeDisplayed={5}
                          onPageChange={this.page_change_handler}
