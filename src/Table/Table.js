@@ -30,7 +30,7 @@ export default function Table(props) {
       </thead>
       { props.data.map(person => (
         <tbody>
-          <tr key={person.id + person.phone}>
+          <tr onClick={props.get_info.bind(null, person)} key={person.id + person.phone}>
             <td className="table__cell">{person.id}</td>
             <td className="table__cell">{person.firstName}</td>
             <td className="table__cell">{person.lastName}</td>

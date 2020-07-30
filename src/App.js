@@ -3,13 +3,15 @@ import logo from './logo.svg';
 import './App.css';
 import Table from './Table/Table';
 import Loading from './Loading/Loading';
+import PersonInfo from './PersonInfo/PersonInfo';
 
 class App extends Component {
   state = {
     data: [],
     request_status: true,
     field: 'id',
-    sort: 'up'
+    sort: 'up',
+    person: null
   }
 
   async componentDidMount() {
@@ -40,11 +42,26 @@ class App extends Component {
     })
   }
 
+  get_info = (person) => {
+    this.setState({
+      person: person
+    })
+  }
+
   render() {
     return (
       <div className="App">
         { this.state.request_status ? <Loading /> :
-          <Table data={this.state.data} sort={this.Sort} sort_dir={this.state.sort} field={this.state.field}/> }
+          <Table data={this.state.data}
+                 sort={this.Sort}
+                 sort_dir={this.state.sort}
+                 field={this.state.field}
+                 get_info={this.get_info}
+          />
+        }
+        {
+          this.state.person ? <PersonInfo person={this.state.person} /> : null
+        }
       </div>
     )
   }
