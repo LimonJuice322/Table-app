@@ -18,7 +18,8 @@
   border-radius: 10px;
 }
 
-.buttons__btn:hover {
+.buttons__btn:hover,
+.buttons__btn:focus {
   cursor: pointer;
   color: #3AFF81;
   background-color: #ffffff;
@@ -28,12 +29,4 @@
 .buttons__description {
   color: #3AB8FF;
   font-size: 30px;
-}
-
-.buttons__btn--small {
-
-}
-
-.buttons__btn--large {
-
 }

@@ -13,7 +13,16 @@
 }
 
 .person-info__description {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
   margin: 0;
   padding: 0;
   padding-bottom: 10px;
+}
+
+.person-info__textarea {
+  resize: none;
+  width: 400px;
+  min-height: 80px;
 }

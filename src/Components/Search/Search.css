@@ -23,7 +23,8 @@
   border-radius: 5px;
 }
 
-.search__btn:hover {
+.search__btn:hover,
+.search__btn:focus {
   cursor: pointer;
   color: #ffffff;
   background-color: #3AFF81;

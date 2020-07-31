@@ -4,23 +4,24 @@ import './PersonInfo.css';
 export default function PersonInfo(props) {
   return (
     <section className="person-info">
-     <h2 className="person-info__header"><b>Карточка пользователя:</b> {props.person.firstName + ' ' + props.person.lastName}</h2>
+     <h2 className="person-info__header"><b>Выбран пользователь</b> {props.person.firstName + ' ' + props.person.lastName}</h2>
      <p className="person-info__description">
-     <b>Адрес:</b> {
-       props.person.address.state + ', '
-       + props.person.address.city + ', '
-       + props.person.address.streetAddress + ', '
-       + props.person.address.zip
-     }
+      Описание:
+        <textarea class="person-info__textarea">
+          {props.person.description}
+        </textarea>
      </p>
      <p className="person-info__description">
-      <b>Телефон:</b> {props.person.phone}
+      Адрес проживания: <b>{props.person.address.streetAddress}</b>
      </p>
      <p className="person-info__description">
-      <b>Email:</b> {props.person.email}
+      Город: <b>{props.person.address.city}</b>
      </p>
      <p className="person-info__description">
-      <b>Описание:</b> {props.person.description}
+      Провинция/штат: <b>{props.person.address.state}</b>
+     </p>
+     <p className="person-info__description">
+      Индекс: <b>{props.person.address.zip}</b>
      </p>
    </section>
   )

@@ -7,6 +7,7 @@ import Loading from './Components/Loading/Loading';
 import PersonInfo from './Components/PersonInfo/PersonInfo';
 import TypeSelector from './Components/TypeSelector/TypeSelector';
 import Search from './Components/Search/Search';
+import AddElement from './Components/AddElement/AddElement'
 
 class App extends Component {
   state = {
@@ -17,7 +18,8 @@ class App extends Component {
     sort: 'up',
     person: null,
     current_page: 0,
-    search: ''
+    search: '',
+    new_person: null
   }
 
   urls = {
@@ -79,6 +81,12 @@ class App extends Component {
     })
   }
 
+  add_handler = (person) => {
+    this.setState({
+      new_person: person
+    })
+  }
+
   get_filtered_data() {
     let clone_data = this.state.data.slice(0);
     let search = this.state.search;
@@ -94,6 +102,13 @@ class App extends Component {
     })
   }
 
+  add_new_person(person) {
+    if (this.state.new_person != null) {
+      this.state.data.unshift(person);
+      this.state.new_person = null;
+    }
+  }
+
   render() {
     const page_size = 50;
 
@@ -105,6 +120,7 @@ class App extends Component {
       )
     }
 
+    this.add_new_person(this.state.new_person);
     let filtered_data = this.get_filtered_data();
     let page_count = Math.ceil(filtered_data.length / page_size);
     if (filtered_data.length < page_size) page_count = filtered_data.length;
@@ -115,6 +131,7 @@ class App extends Component {
         { this.state.request_status ? <Loading /> :
           <React.Fragment>
             <Search search={this.search_handler}/>
+            <AddElement add={this.add_handler} />
             <Table data={display_data}
                    sort={this.Sort}
                    sort_dir={this.state.sort}
